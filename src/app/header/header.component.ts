@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Response } from '@angular/http';
 
 import { DataStorageService } from '../shared/data-storage.service';
+import { AuthService } from '../auth/auth.service';
+import { auth } from 'firebase';
 
 @Component({
   selector: 'app-header',
@@ -9,7 +11,7 @@ import { DataStorageService } from '../shared/data-storage.service';
   styleUrls: []
 })
 export class HeadComponent {
-    constructor(private dataStorage: DataStorageService) {}
+    constructor(private dataStorage: DataStorageService, private authservice: AuthService) {}
 
     onSaveData() {
       this.dataStorage.storeRecipe()
@@ -22,6 +24,10 @@ export class HeadComponent {
 
     onFetchData() {
       this.dataStorage.getRecipe();
+    }
+
+    onLogout() {
+      this.authservice.logOut();
     }
   
 }
