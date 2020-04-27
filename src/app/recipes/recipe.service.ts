@@ -11,7 +11,7 @@ export class RecipeService {
 
    private recipes: Recipe[] = [
         new Recipe(
-            'Egbusi', 
+            'Egusi', 
             'This is The Recipe for Egbusi', 
             'https://www.allnigerianrecipes.com/wp-content/uploads/2019/03/egusi-soup.jpg',
             [
