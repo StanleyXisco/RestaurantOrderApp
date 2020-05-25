@@ -4,9 +4,9 @@ import { Store } from '@ngrx/store';
 
 import { Recipe } from '../Recipe.model';
 import { RecipeService } from '../recipe.service';
-import { AuthService } from 'src/app/auth/auth.service';
 import * as ShoppingListActions from '../../shopping-list/store/shopping-list.actions';
-import * as fromApp from "../../store/app.reducers"
+import * as fromApp from '../../store/app.reducers';
+
 
 @Component({
   selector: 'app-recipe-detail',
@@ -17,8 +17,7 @@ export class RecipeDetailComponent implements OnInit {
   recipe: Recipe;
   id: number;
 
-  constructor(private recipeService: RecipeService, private route: ActivatedRoute, private router: Router,
-    private authservice: AuthService, private store: Store<fromApp.AppState>) { }
+  constructor(private recipeService: RecipeService, private route: ActivatedRoute, private router: Router,private store: Store<fromApp.AppState>) { }
 
   ngOnInit() {
     this.route.params
@@ -35,12 +34,9 @@ export class RecipeDetailComponent implements OnInit {
     // this.recipeService.addIngredientToShoppingList(this.recipe.ingredients)
   }
 
+
   onEditRecipe() {
-    if(!this.authservice.isAuthenticated()) {
-      this.router.navigate(['/signin'])
-    } else {
-      this.router.navigate(['edit'], {relativeTo: this.route})
-    }
+    this.router.navigate(['edit'], {relativeTo: this.route});
   }
 
   onDeleteRecipe() {

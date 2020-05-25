@@ -5,7 +5,6 @@ import { Store } from '@ngrx/store';
 
 import { RecipeService } from '../recipes/recipe.service';
 import { Recipe } from '../recipes/Recipe.model';
-import { AuthService } from '../auth/auth.service';
 import * as fromApp from '../store/app.reducers';
 import * as fromAuth from '../auth/store/auth.reducers';
 
@@ -14,8 +13,7 @@ import * as fromAuth from '../auth/store/auth.reducers';
 export class DataStorageService {
     constructor (
         private httpClient: HttpClient, 
-        private recipeService: RecipeService,
-        private authservice: AuthService, private store: Store<fromApp.AppState>) {}
+        private recipeService: RecipeService, private store: Store<fromApp.AppState>) {}
     
     storeRecipe() {
 
