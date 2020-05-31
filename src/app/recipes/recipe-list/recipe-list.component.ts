@@ -1,39 +1,36 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Recipe } from '../Recipe.model';
-import { RecipeService } from '../recipe.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
+import { Component, OnInit } from "@angular/core";
+import { Router, ActivatedRoute } from "@angular/router";
+import { Store } from "@ngrx/store";
+import { Observable } from "rxjs/Observable";
 
+import * as fromRecipes from "../store/recipe.reducers";
 
 @Component({
-  selector: 'app-recipe-list',
-  templateUrl: './recipe-list.component.html',
-  styleUrls: ['./recipe-list.component.css']
+  selector: "app-recipe-list",
+  templateUrl: "./recipe-list.component.html",
+  styleUrls: ["./recipe-list.component.css"],
 })
-export class RecipeListComponent implements OnInit, OnDestroy{
-  recipes: Recipe[];
-  subscription: Subscription;
+export class RecipeListComponent implements OnInit {
+  recipeState: Observable<fromRecipes.State>;
 
-
-
-  constructor(private recipeService: RecipeService, private router: Router, private route: ActivatedRoute,) { }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private store: Store<fromRecipes.FeatureState>
+  ) {}
 
   ngOnInit() {
-    this.subscription = this.recipeService.recipeChanged
-      .subscribe(
-        (recipes: Recipe[]) => {
-          this.recipes = recipes;
-        }
-      );
-    this.recipes = this.recipeService.getRecipe();
+    this.recipeState = this.store.select("recipes");
+    // this.subscription = this.recipeService.recipeChanged
+    //   .subscribe(
+    //     (recipes: Recipe[]) => {
+    //       this.recipes = recipes;
+    //     }
+    //   );
+    // this.recipes = this.recipeService.getRecipe();
   }
 
   onNewRecipe() {
-      this.router.navigate(['new'], {relativeTo: this.route});
+    this.router.navigate(["new"], { relativeTo: this.route });
   }
-  
-  ngOnDestroy () {
-    this.subscription.unsubscribe();
-  }
-
 }
